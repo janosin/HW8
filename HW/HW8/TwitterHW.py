@@ -49,7 +49,9 @@ def get_tweets():
         cache_file.write(json.dumps(CACHE_DICTION)+ "\n")
         cache_file.close()
     
+    
     return twitter_results
+    print ("prank")
 
 
 
@@ -74,13 +76,13 @@ cur.execute('CREATE TABLE Tweets(tweet_id TEXT, author TEXT, time_posted TIMESTA
 # 2 - Write code to drop the Tweets table if it exists, and create the table (so you can run the program over and over), with the correct (4) column names and appropriate types for each.
 # HINT: Remember that the time_posted column should be the TIMESTAMP data type!
 
-# 3 - Invoke the function you defined above to get a list that represents a bunch of tweets from the UMSI timeline. Save those tweets in a variable called umsi_tweets. yep
-umsi_tweets = get_tweets()
+# 3 - Invoke the function you defined above to get a list that represents a bunch of tweets from the UMSI timeline. Save those tweets in 
+tw= get_tweets()
 
 # 4 - Use a for loop, the cursor you defined above to execute INSERT statements, that insert the data from each of the tweets in umsi_tweets into the correct columns in each row of the Tweets database table.
-for tw in umsi_tweets:
-    tup = tw["id"], tw["user"]["screen_name"], tw["created_at"], tw["retweet_count"]
-    cur.execute('INSERT INTO Tweets (tweet_id, author, time_posted, tweet_text, retweets) VALUES (?,?,?,?)', tup)
+
+tup = tw["id"], tw["user"]["screen_name"], tw["created_at"], tw["retweet_count"]
+cur.execute('INSERT INTO Tweets (tweet_id, author, time_posted, tweet_text, retweets) VALUES (?,?,?,?)', tup)
 
 #  5- Use the database connection to commit the changes to the database
 conn.commit()
